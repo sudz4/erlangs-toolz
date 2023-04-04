@@ -17,6 +17,7 @@ from datetime import datetime
 import threading
 import pyfiglet
 
+# set CONSTANT vars
 CLIENT_NAME = 'YOUR_CLIENTS_NAME'
 CLIENT_NAME = CLIENT_NAME.upper()
 COUNTDOWN_SECONDS = 10
