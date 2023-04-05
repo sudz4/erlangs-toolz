@@ -12,7 +12,8 @@ openai.api_key = OPENAI_API_TOKEN
 def categorize_daily_update(text):
     prompt = (
         "I need two categories. \"Daily Objectives:\" and \"Daily Accomplishments\". "
-        "I am going to just start writing things. categorize each either sentence or "
+        "I am going to just start writing about my day as a ServiceNow program manager"
+        " / solution architect. categorize each either sentence or "
         "phrase as an objective or an accomplishment. then complete any necessary "
         "sentence completion, add context you want. make the categorized output flow "
         "together. professionally and smartly. I submit this update with my daily time card.\n\n"
