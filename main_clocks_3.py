@@ -66,7 +66,7 @@ ascii_art_frame.grid(row=len(city_tzones) // 2, column=1, padx=20, pady=20, stic
 ascii_art_label = tk.Label(ascii_art_frame, text=ascii_art, font=("Courier", 20), fg='#ffffff', bg='#15202b')
 ascii_art_label.pack()
 
-for i in range(2):
+for i in range(2): # specified two (2) columns
     root.grid_columnconfigure(i, weight=1, uniform="col")
     root.grid_rowconfigure(i, weight=1, uniform="row")
 
