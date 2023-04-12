@@ -6,6 +6,7 @@
 import tkinter as tk
 import datetime
 from dateutil import tz
+import tkinter.font as tkfont # for dynamic re-sizing of fonts
 
 # city names and time zones
 city_tzones = {
@@ -42,7 +43,7 @@ def resize_text(event):
     
     for time_label in time_labels:
         current_font = time_label.cget('font')
-        font = tk.font.Font(font=current_font)  # Create a Font object
+        font = tkfont.Font(font=current_font)  # Create a Font object using the correct import
         font_family = font.actual('family')
         original_size = font.actual('size')
         style = font.actual('weight')
