@@ -62,13 +62,15 @@ a program by,
                                     
 """
 ascii_art_frame = tk.Frame(root, bg='#15202b')
-ascii_art_frame.grid(row=6, column=1, padx=20, pady=20, sticky="nsew")
+ascii_art_frame.grid(row=len(city_tzones) // 2, column=1, padx=20, pady=20, sticky="nsew")
 ascii_art_label = tk.Label(ascii_art_frame, text=ascii_art, font=("Courier", 20), fg='#ffffff', bg='#15202b')
 ascii_art_label.pack()
 
-for i in range(3):
+for i in range(2):
     root.grid_columnconfigure(i, weight=1, uniform="col")
     root.grid_rowconfigure(i, weight=1, uniform="row")
+
+root.grid_rowconfigure(len(city_tzones) // 2, weight=1, uniform="row")
 
 update_time()
 root.mainloop()
