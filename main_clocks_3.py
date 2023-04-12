@@ -42,7 +42,11 @@ def resize_text(event):
     
     for time_label in time_labels:
         current_font = time_label.cget('font')
-        font_family, original_size, style = current_font.split(' ')
+        font = tk.font.Font(font=current_font)  # Create a Font object
+        font_family = font.actual('family')
+        original_size = font.actual('size')
+        style = font.actual('weight')
+        
         new_size = int(float(original_size) * ratio)
         new_font = f"{font_family} {new_size} {style}"
         time_label.configure(font=new_font)
