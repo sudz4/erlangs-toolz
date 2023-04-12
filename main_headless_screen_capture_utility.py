@@ -1,5 +1,5 @@
 def ascii_art_signature():
-    ascii_art_sudz4 = r""" # program by,
+    ascii_art_sudz4 = r""" # a program by,
 ███████ ██    ██ ██████  ███████ ██   ██ 
 ██      ██    ██ ██   ██    ███  ██   ██ 
 ███████ ██    ██ ██   ██   ███   ███████ 
