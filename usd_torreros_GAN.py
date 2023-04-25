@@ -1,41 +1,39 @@
 
+""" 
+ESRGAN enhancer
+"""
+
 #libs
 import torch
 import torchvision.transforms as transforms
-from torchvision.models import srgan
 from PIL import Image
+from ESRGAN.RRDBNet_arch import RRDBNet as arch
 
-def enhance_image_with_srgan(input_image_path, output_image_path):
-    # Load the pre-trained SRGAN model
-    model = srgan.create_transformer()
+def enhance_image_with_esrgan(input_image_path, output_image_path, model_path='ESRGAN/models/RRDB_ESRGAN_x4.pth'):
+    # Load the pre-trained ESRGAN model
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = arch.RRDBNet(3, 3, 64, 23, gc=32)
+    model.load_state_dict(torch.load(model_path), strict=True)
     model.eval()
+    model = model.to(device)
 
     # Load the input image and preprocess it
-    img = Image.open(input_image_path)
-    preprocess = transforms.Compose([
-        transforms.Resize((img.height * 4, img.width * 4), Image.BICUBIC),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-    input_tensor = preprocess(img).unsqueeze(0)
+    img = Image.open(input_image_path).convert('RGB')
+    img_tensor = transforms.ToTensor()(img).unsqueeze(0).to(device)
 
-    # Enhance the image using the SRGAN model
+    # Enhance the image using the ESRGAN model
     with torch.no_grad():
-        output_tensor = model(input_tensor)
+        output_tensor = model(img_tensor)
 
     # Post-process the output image
-    postprocess = transforms.Compose([
-        transforms.Normalize(mean=[-0.485 / 0.229, -0.456 / 0.224, -0.406 / 0.225], std=[1 / 0.229, 1 / 0.224, 1 / 0.225]),
-        transforms.ToPILImage(),
-    ])
-    output_image = postprocess(output_tensor.squeeze(0))
+    output_image = transforms.ToPILImage()(output_tensor.squeeze(0).cpu())
 
     # Save the enhanced image
     output_image.save(output_image_path)
 
-if __name__ == "__main__":
-    enhance_image_with_srgan("usd_id_card_low_complex_bckrnd.jpg", "us_torreros_GAN_output.jpg")
 
+if __name__ == "__main__":
+    enhance_image_with_esrgan("usd_torreros_ms.jpg", "usd_torreros_ms_GAN_output.jpg")
 
 
 
