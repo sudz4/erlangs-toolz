@@ -38,7 +38,7 @@ def make_id_photo(input_image_path, output_image_path):
     print(f"Image dimensions: {id_width} x {id_height} pixels")
 
 if __name__ == "__main__":
-    input_image_path = "usd_id_card_1mb.jpg"
-    # input_image_path = "usd_low_complex_bckrnd.jpg"
+    # input_image_path = "usd_id_card_1mb.jpg"
+    input_image_path = "usd_low_complex_bckrnd.jpg"
     output_image_path = "usd_torreros_mss.jpg"
     make_id_photo(input_image_path, output_image_path)
