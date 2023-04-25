@@ -24,7 +24,7 @@ def make_id_photo(input_image_path, output_image_path):
     id_width, id_height = 45 * 5, 35 * 5
     img_id_size = cv2.resize(img_white_bg, (id_width, id_height), interpolation=cv2.INTER_CUBIC)
 
-    cv2.imwrite(output_image_path, img_id_size, [cv2.IMWRITE_JPEG_QUALITY, 80])
+    cv2.imwrite(output_image_path, img_id_size, [cv2.IMWRITE_JPEG_QUALITY, 95]) # increasing number parameter makes quality better but also makes file size larger
 
     output_size_kb = os.path.getsize(output_image_path) / 1024
     while output_size_kb > 1024:
@@ -38,6 +38,7 @@ def make_id_photo(input_image_path, output_image_path):
     print(f"Image dimensions: {id_width} x {id_height} pixels")
 
 if __name__ == "__main__":
-    input_image_path = "usd_low_complex_bckrnd.jpg"
-    output_image_path = "usd_torreros_ms.jpg"
+    input_image_path = "usd_id_card_1mb.jpg"
+    # input_image_path = "usd_low_complex_bckrnd.jpg"
+    output_image_path = "usd_torreros_mss.jpg"
     make_id_photo(input_image_path, output_image_path)
