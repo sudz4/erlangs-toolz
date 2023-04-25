@@ -7,19 +7,23 @@ ESRGAN enhancer
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-from ESRGAN.RRDBNet_arch import RRDBNet as arch
+import sys
+sys.path.append('ESRGAN')
+from ESRGAN.RRDBNet_arch import RRDBNet
 
 def enhance_image_with_esrgan(input_image_path, output_image_path, model_path='ESRGAN/models/RRDB_ESRGAN_x4.pth'):
     # Load the pre-trained ESRGAN model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = arch.RRDBNet(3, 3, 64, 23, gc=32)
+    model = RRDBNet(3, 3, 64, 23, gc=32)
     model.load_state_dict(torch.load(model_path), strict=True)
     model.eval()
     model = model.to(device)
 
     # Load the input image and preprocess it
     img = Image.open(input_image_path).convert('RGB')
-    img_tensor = transforms.ToTensor()(img).unsqueeze(0).to(device)
+    normalize = transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+    img_tensor = transforms.Compose([transforms.ToTensor(), normalize])(img).unsqueeze(0).to(device)
+
 
     # Enhance the image using the ESRGAN model
     with torch.no_grad():
